@@ -70,10 +70,11 @@ function App() {
     if (iterations < 1) {
       return null;
     }
+    let newDistribution = distribution;
     for (let i = 0; i < iterations - 1; i++) {
-      distribution = convolute(distribution, distribution).exact;
+      newDistribution = convolute(newDistribution, distribution).exact;
     }
-    return convolute( altDistribution, distribution );
+    return convolute( altDistribution, newDistribution );
   }
 
   const single = generateDistribution();

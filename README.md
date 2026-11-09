@@ -11,7 +11,7 @@ npm run build
 ```
 
 ## Installation
-todo
+idk `git clone` it or something
 
 ## Usage
 ...Open it in a browser?

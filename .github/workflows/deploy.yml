@@ -16,4 +16,4 @@ jobs:
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: builds
+          folder: dist

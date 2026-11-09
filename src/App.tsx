@@ -79,7 +79,7 @@ function App() {
   const single = generateDistribution();
   const singlePlusCharge = generateDistribution(startingCharge);
 
-  let probability = convoluteX(single.exact, totalSuccess - 1, singlePlusCharge.exact) ?? single;
+  let probability = convoluteX(single.exact, totalSuccess - 1, singlePlusCharge.exact) ?? singlePlusCharge;
   for (let i = 0, x = 0; i < probability.cumulative.length; i++) {
     if (i === bonusTicket[x] - 1) {
       probability.cumulative[i] = probability.cumulative[bonusTicket[x] + 10] ?? 1;
@@ -171,7 +171,7 @@ function App() {
           <Line options={options} data={data} />
         </div>
         <div id="controls">
-          <span>
+          <span className="control">
             <label>Rate Ups Desired: </label>
             <input
               type="number"
@@ -188,12 +188,12 @@ function App() {
               onChange={(e) => setTotalSuccess(parseInt(e.target.value))}
             />
           </span>
-          <span>
+          <span className="control">
             <label>Starting Charge: </label>
             <input
               type="number"
               min="1"
-              max="100"
+              max="199"
               value={startingCharge}
               onChange={(e) => setStartingCharge(parseInt(e.target.value))}
             />
@@ -205,7 +205,7 @@ function App() {
               onChange={(e) => setStartingCharge(parseInt(e.target.value))}
             />
           </span>
-          <span>
+          <span className="control">
             <label>Used Milage: </label>
             <input
               type="number"

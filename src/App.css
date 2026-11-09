@@ -1,0 +1,27 @@
+#controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  @media (max-width: 888px) {
+    gap: 1rem;
+    flex-direction: column;
+  }
+}
+.control {
+  height: 1.333rem;
+  display: flex;
+  gap: 0.5rem;
+  label {
+    white-space: nowrap;
+  }
+  input[type="number"] {
+    border: 0px solid transparent;
+    border-radius: 0.222rem;
+  }
+  input[type="range"] {
+    width: 6.667rem;
+    @media (max-width: 888px) {
+      width: -moz-available;
+    }
+  }
+}

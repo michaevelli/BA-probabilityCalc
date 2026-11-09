@@ -122,7 +122,8 @@ function App() {
         title: {
           display: true,
           text: "Probability",
-        }
+        },
+        max: 1
       },
       x: {
         type: 'linear' as const,

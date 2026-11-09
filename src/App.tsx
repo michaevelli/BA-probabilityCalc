@@ -1,7 +1,4 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,7 +13,6 @@ import { Line } from 'react-chartjs-2';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0);
   const [startingCharge, setStartingCharge] = useState(0);
   const [usedMileage, setUsedMilage] = useState(0);
   const [totalSuccess, setTotalSuccess] = useState(2);
@@ -114,7 +110,7 @@ function App() {
     plugins: {
       title: {
         display: true,
-        text: 'Cumalative Probability',
+        text: `Probability of ${totalSuccess} rate ups with ${startingCharge} starting charge and ${usedMileage} consumed mileage`,
       },
     },
     scales: {
@@ -166,40 +162,66 @@ function App() {
       // },
     ],
   };
-  console.log(probability.cumulative)
   
   return (
     <>
-      <section id="centre">
+      <section id="center">
+        <h1>BA gacha probability</h1>
         <div>
-          Graph
           <Line options={options} data={data} />
         </div>
-        <div>
-          <label>Rate Ups Desired: {totalSuccess}</label>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={totalSuccess}
-            onChange={(e) => setTotalSuccess(parseInt(e.target.value))}
-          />
-          <label>Starting Charge: {startingCharge}</label>
-          <input
-            type="range"
-            min="0"
-            max="199"
-            value={startingCharge}
-            onChange={(e) => setStartingCharge(parseInt(e.target.value))}
-          />
-          <label>Used Milage: {usedMileage}</label>
-          <input
-            type="range"
-            min="0"
-            max="199"
-            value={usedMileage}
-            onChange={(e) => setUsedMilage(parseInt(e.target.value))}
-          />
+        <div id="controls">
+          <span>
+            <label>Rate Ups Desired: </label>
+            <input
+              type="number"
+              min="1"
+              max="10"
+              value={totalSuccess}
+              onChange={(e) => setTotalSuccess(parseInt(e.target.value))}
+            />
+            <input
+              type="range"
+              min="1"
+              max="10"
+              value={totalSuccess}
+              onChange={(e) => setTotalSuccess(parseInt(e.target.value))}
+            />
+          </span>
+          <span>
+            <label>Starting Charge: </label>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              value={startingCharge}
+              onChange={(e) => setStartingCharge(parseInt(e.target.value))}
+            />
+            <input
+              type="range"
+              min="0"
+              max="199"
+              value={startingCharge}
+              onChange={(e) => setStartingCharge(parseInt(e.target.value))}
+            />
+          </span>
+          <span>
+            <label>Used Milage: </label>
+            <input
+              type="number"
+              min="1"
+              max="400"
+              value={usedMileage}
+              onChange={(e) => setUsedMilage(parseInt(e.target.value))}
+            />
+            <input
+              type="range"
+              min="0"
+              max="400"
+              value={usedMileage}
+              onChange={(e) => setUsedMilage(parseInt(e.target.value))}
+            />
+          </span>
         </div>
       </section>
 

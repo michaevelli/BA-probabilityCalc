@@ -93,8 +93,6 @@ function App() {
   bonusTicket.forEach((i, j) => {
     probability.cumulative.splice(i - (10 * j), 10)
   })
-
-  console.log(probability)
   
   ChartJS.register(
     CategoryScale,

@@ -179,10 +179,8 @@ function App() {
     },
   };
 
-  const labels = Array.from({length: probability.cumulative.length}, (_, i) => i+1);
-
   const data = {
-    labels,
+    labels: Array.from({length: probability.cumulative.length}, (_, i) => i+1),
     datasets: [
       {
         label: oldSystemProbability ? 'Charge System' : 'Probability',
@@ -276,7 +274,6 @@ function App() {
           </span>
         </div>
       </section>
-
     </>
   )
 }

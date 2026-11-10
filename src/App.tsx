@@ -8,9 +8,6 @@ import {
   Title,
   Tooltip,
   Legend,
-  type TooltipCallbacks,
-  type TooltipItem,
-  type ChartTypeRegistry,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import './App.css'
@@ -126,7 +123,7 @@ function App() {
 
   const oldSystemProbability = showSparkSystem ? cumulativeBinomialTail(totalSuccess) : null;
   if (oldSystemProbability) {
-    probability.cumulative.push(...(Array.from({length: oldSystemProbability.length - probability.cumulative.length}, (_, i) => 1)))
+    probability.cumulative.push(...(Array.from({length: oldSystemProbability.length - probability.cumulative.length}, () => 1)))
   }
   
   ChartJS.register(

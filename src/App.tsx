@@ -87,6 +87,16 @@ function App() {
     if (minimum > trials) {
       return 0;
     }
+    /**
+     * Typically calculated by
+     * `\Sum_{k=0}^n (n!/((n-k)!k!)) * p^k * (1-p)^(n-k)`
+     * But calculating the coefficients individually is computationally expensive
+     * And calculating the powers individually results in floating point errors
+     * We simplify by calculating each element of the sum using the previous element
+     * The first coefficient is 1 and the first power is (1-p)^n
+     * The next coefficients are obtained by multiplying by (n-k)/k
+     * The next powers are obtained by multiplying by p/(1-p)
+     */
     const q = 1 - RATE;
     let term = Math.pow(q, trials);
     let below = term;

@@ -8,6 +8,9 @@ import {
   Title,
   Tooltip,
   Legend,
+  type TooltipCallbacks,
+  type TooltipItem,
+  type ChartTypeRegistry,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import './App.css'
@@ -90,6 +93,8 @@ function App() {
   bonusTicket.forEach((i, j) => {
     probability.cumulative.splice(i - (10 * j), 10)
   })
+
+  console.log(probability)
   
   ChartJS.register(
     CategoryScale,
@@ -122,6 +127,9 @@ function App() {
         title: {
           display: true,
           text: "Probability",
+        },
+        ticks: {
+          format: { maximumFractionDigits: 5, minimumFractionDigits: 5 }
         },
         max: 1
       },

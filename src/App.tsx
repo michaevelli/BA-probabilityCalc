@@ -138,6 +138,7 @@ function App() {
 
   const options = {
     responsive: true,
+    // maintainAspectRatio: false,
     interaction: {
       mode: 'index' as const,
       intersect: false,
@@ -208,6 +209,7 @@ function App() {
       <section id="center">
         <h1>BA gacha probability</h1>
         <div>
+          <div>&nbsp;</div>
           <Line options={options} data={data} />
         </div>
         <div className="controls">

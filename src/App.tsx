@@ -116,7 +116,7 @@ function App() {
   let probability = convoluteX(single.exact, totalSuccess - 1, singlePlusCharge.exact) ?? singlePlusCharge;
   for (let i = 0, x = 0; i < probability.cumulative.length; i++) {
     if (i === bonusTicket[x] - 1) {
-      probability.cumulative[i] = probability.cumulative[bonusTicket[x] + 10] ?? 1;
+      probability.cumulative[i] = probability.cumulative[bonusTicket[x] + 10 - 1] ?? 1;
       x++;
     }
   }
@@ -128,7 +128,6 @@ function App() {
   if (oldSystemProbability) {
     probability.cumulative.push(...(Array.from({length: oldSystemProbability.length - probability.cumulative.length}, (_, i) => 1)))
   }
-  console.log(probability)
   
   ChartJS.register(
     CategoryScale,

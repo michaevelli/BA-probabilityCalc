@@ -3,7 +3,7 @@ Webpage to calculate probability of getting `X` rate up units in `Y` pulls given
 
 ## Features
 - Exact probabilty calculated on the fly through convolution
-- Iterative convolution serves to complately crash the browser due to the amount of compute
+- Iterative convolution serves to complately crash the browser due to the amount of compute if looped too many times
 
 ## Compilation
 ```

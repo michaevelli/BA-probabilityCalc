@@ -1,4 +1,9 @@
-#controls {
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.controls {
   display: flex;
   flex-direction: row;
   justify-content: space-around;

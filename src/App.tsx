@@ -19,6 +19,8 @@ function App() {
   const [startingCharge, setStartingCharge] = useState(0);
   const [usedMileage, setUsedMilage] = useState(0);
   const [totalSuccess, setTotalSuccess] = useState(2);
+  
+  const [showSparkSystem, setShowSparkSystem] = useState(false);
 
   const bonusTicket = [70, 130, 150, 170, 270, 330, 350, 370].map((e) => e - usedMileage).filter((e) => e > 0);
 
@@ -80,6 +82,34 @@ function App() {
     return convolute( altDistribution, newDistribution );
   }
 
+  const binomialTail = (trials: number, minimum: number) => {
+    const RATE = 0.007;
+    if (minimum <= 0) {
+      return 1;
+    }
+    if (minimum > trials) {
+      return 0;
+    }
+    const q = 1 - RATE;
+    let term = Math.pow(q, trials);
+    let below = term;
+    for (let successes = 1; successes < minimum; successes += 1) {
+      term *= ((trials - successes + 1) / successes) * (RATE / q);
+      below += term;
+    }
+    return 1 - below;
+  }
+
+  const cumulativeBinomialTail = (success: number) => {
+    const SPARK = 200;
+    let result: Array<number> = [];
+    for (let i = 0; i < success * SPARK - 1; i++) {
+      result[i] = binomialTail(i+1, success - Math.floor(i/SPARK))
+    }
+    result[success * SPARK - 1] = 1;
+    return result;
+  }
+
   const single = generateDistribution();
   const singlePlusCharge = generateDistribution(startingCharge);
 
@@ -93,6 +123,12 @@ function App() {
   bonusTicket.forEach((i, j) => {
     probability.cumulative.splice(i - (10 * j), 10)
   })
+
+  const oldSystemProbability = showSparkSystem ? cumulativeBinomialTail(totalSuccess) : null;
+  if (oldSystemProbability) {
+    probability.cumulative.push(...(Array.from({length: oldSystemProbability.length - probability.cumulative.length}, (_, i) => 1)))
+  }
+  console.log(probability)
   
   ChartJS.register(
     CategoryScale,
@@ -153,7 +189,7 @@ function App() {
     labels,
     datasets: [
       {
-        label: 'Probability',
+        label: oldSystemProbability ? 'Charge System' : 'Probability',
         data: probability.cumulative,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -161,13 +197,15 @@ function App() {
         pointRadius: 1,
         pointBorderWidth: 0
       },
-      // {
-      //   label: 'Dataset 2',
-      //   data: [1, 2, 3, 4, 5, 6],
-      //   borderColor: 'rgb(53, 162, 235)',
-      //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      //   yAxisID: 'y1',
-      // },
+      ...(oldSystemProbability ? [{
+        label: 'Spark System',
+        data: oldSystemProbability,
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        yAxisID: 'y',
+        pointRadius: 1,
+        pointBorderWidth: 0
+      }] : []),
     ],
   };
   
@@ -178,7 +216,7 @@ function App() {
         <div>
           <Line options={options} data={data} />
         </div>
-        <div id="controls">
+        <div className="controls">
           <span className="control">
             <label>Rate Ups Desired: </label>
             <input
@@ -228,6 +266,16 @@ function App() {
               max="400"
               value={usedMileage}
               onChange={(e) => setUsedMilage(parseInt(e.target.value))}
+            />
+          </span>
+        </div>
+        <div className="controls">
+          <span className="control">
+            <label>Show Spark System: </label>
+            <input
+              type="checkbox"
+              value={showSparkSystem.toString()}
+              onChange={(e) => setShowSparkSystem(e.target.checked)}
             />
           </span>
         </div>

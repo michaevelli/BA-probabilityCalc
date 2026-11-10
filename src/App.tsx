@@ -246,7 +246,7 @@ function App() {
             />
           </span>
           <span className="control">
-            <label>Used Milage: </label>
+            <label>Used Mileage: </label>
             <input
               type="number"
               min="1"
